@@ -26,7 +26,7 @@ public class ItemDiscordBot {
     public static void main(String[] args) {
         properties = new Properties();
         File settings = new File("settings.conf");
-        if (!settings.exists()){
+        if (!settings.exists()) {
             properties.setProperty("discord-token", "changeme");
             properties.setProperty("redis-host", "0.0.0.0");
             properties.setProperty("redis-port", "6379");
@@ -34,11 +34,15 @@ public class ItemDiscordBot {
             properties.store(new FileOutputStream(settings), "Item Bot Configuration");
             System.out.println("Settings Saved. Please edit and start again.");
             System.exit(0);
-        }
-        else {
+        } else {
             properties.load(new FileInputStream(settings));
         }
-        Redis redis = new Redis();
+
+        String host = properties.getProperty("redis-host");
+        int port = Integer.parseInt(ItemDiscordBot.getProperties().getProperty("redis-port"));
+        String password = properties.getProperty("redis-password");
+        Redis redis = new Redis(host, port, password);
+
         jda = JDABuilder.createLight(properties.getProperty("discord-token"))
                 .setActivity(Activity.playing("with ghosts. Commands h!help"))
                 .setAutoReconnect(true)
