@@ -9,25 +9,27 @@ import org.json.JSONObject;
 
 import java.awt.*;
 
-public class InventoryCommand extends CoreCommand{
+public class InventoryCommand extends CoreCommand {
     public InventoryCommand() {
         super("inventory", "Get your item Inventory", "inv", "items");
     }
 
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
-        if(!event.getAuthor().isBot()) {
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
+        if (!event.getAuthor().isBot()) {
             User user = event.getAuthor();
-            JSONObject object = Redis.getInv(user.getId());
+            JSONObject object = Redis.getUser(user.getId());
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setTitle("Happy Halloween - " + user.getAsTag() + " Inventory");
+            builder.setTitle("Happy Halloween - @" + user.getAsTag() + " Inventory");
             builder.setDescription("All the items in your inventory!");
             if (object == null) {
                 builder.addField("No Items in your Inventory", "Have fun trying to answer the trick or treaters", false);
             } else {
                 for (String key : object.keySet()) {
                     if (!key.equalsIgnoreCase("total_claims")) {
-                        builder.addField(key + " x" + object.getInt(key), "", false);
+                        if (!key.equalsIgnoreCase("permission_level")) {
+                            builder.addField(key + " x" + object.getInt(key), "", false);
+                        }
                     }
                 }
             }

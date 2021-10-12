@@ -29,12 +29,11 @@ public class ItemManager {
         latestItem = new Item(item, embedBuilder);
         return embedBuilder.build();
     }
-
+  
     private static String getRandomTrickOrTreat() {
         Random r = new Random();
         return r.nextBoolean() ? "trick" : "treat";
     }
-
     private static HalloweenItem getRandomItem() {
         return VALUES.get(RANDOM.nextInt(SIZE));
     }

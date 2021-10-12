@@ -12,14 +12,25 @@ public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        String msg = event.getMessage().getContentStripped().toLowerCase(Locale.ROOT);
         if (!event.getAuthor().isBot()) {
-            //System.out.println("[DEBUG] Stripped Message: " + event.getMessage().getContentStripped());
-            if (event.getMessage().getContentStripped().toLowerCase(Locale.ROOT).startsWith("h!")) {
-                String[] command = event.getMessage().getContentStripped().toLowerCase(Locale.ROOT).split("h!");
-                if (command[1] == null) {
-                    event.getChannel().sendMessage("Unknown Command. Please use h!help to get a list of commands.").submit();
+            if (msg.toLowerCase(Locale.ROOT).startsWith("h!")) {
+                String[] command = msg.split("h!");
+                if (command.length == 0) {
+                    event.getChannel().sendMessage("No command found. Please use h!help to get a list of commands.").submit();
                 } else {
-                    Objects.requireNonNull(CommandMap.getCommand(command[1])).execute(event);
+                    String[] cmdname = command[1].split(" ", 2);
+                    System.out.println("Cmdname Length: " + cmdname.length);
+                    if (cmdname.length != 2) {
+                        Objects.requireNonNull(CommandMap.getCommand(cmdname[0])).execute(event);
+                    } else {
+                        String[] args = cmdname[1].split(" ");
+                        if (!CommandMap.contains(cmdname[0])) {
+                            event.getChannel().sendMessage("Unknown Command. Please use h!help to get a list of commands.").submit();
+                        } else {
+                            Objects.requireNonNull(CommandMap.getCommand(cmdname[0])).execute(event, args);
+                        }
+                    }
                 }
             }
         }
