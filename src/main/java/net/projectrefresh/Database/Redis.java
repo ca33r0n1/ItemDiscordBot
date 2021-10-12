@@ -1,9 +1,9 @@
 package net.projectrefresh.Database;
 
 import lombok.Getter;
-import net.projectrefresh.ItemDiscordBot;
 import org.json.JSONObject;
-import redis.clients.jedis.*;
+import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.ShardedJedis;
 
 import java.util.ArrayList;
 import java.util.List;
