@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 public class Item {
 
-    private HalloweenItem item;
-    private EmbedBuilder message;
+    private final HalloweenItem item;
+    private final EmbedBuilder message;
 
     @Setter @Getter
     private String msgid;

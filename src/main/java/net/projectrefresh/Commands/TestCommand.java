@@ -9,7 +9,12 @@ public class TestCommand extends CoreCommand{
     }
 
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
-        event.getChannel().sendMessage("Hurray! The test command works!").submit();
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
+        StringBuilder builder = new StringBuilder();
+        for (String s : args){
+            builder.append(s).append(" ");
+        }
+        event.getChannel().sendMessage("Hurray! The test command works! Your argument passed was: " + builder).submit();
+
     }
 }

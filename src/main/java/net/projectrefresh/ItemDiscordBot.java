@@ -56,5 +56,6 @@ public class ItemDiscordBot {
         new LeaderboardCommand();
         new InventoryCommand();
         new SummonCommand();
+        new HelpCommand();
     }
 }

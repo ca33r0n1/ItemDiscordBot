@@ -1,12 +1,16 @@
 package net.projectrefresh.Commands;
 
+import lombok.Getter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class CoreCommand {
 
+    @Getter
     private final String description;
+    @Getter
     private String[] aliases;
+    @Getter
     private final String label;
 
     /**
@@ -47,15 +51,11 @@ public class CoreCommand {
         }
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     /**
      *  This is called to run the command. This method is what will run when a users passes a command.
      * @param event Message from Discord Channel
      */
-    public void execute(@NotNull MessageReceivedEvent event){
+    public void execute(@NotNull MessageReceivedEvent event, String... args){
     }
 
 }

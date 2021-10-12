@@ -15,7 +15,7 @@ public class InventoryCommand extends CoreCommand{
     }
 
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
         if(!event.getAuthor().isBot()) {
             User user = event.getAuthor();
             JSONObject object = Redis.getInv(user.getId());

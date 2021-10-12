@@ -15,7 +15,7 @@ public class SummonCommand extends CoreCommand{
 
     @SneakyThrows
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
         CompletableFuture<Message> msg = event.getChannel().sendMessageEmbeds(ItemManager.spawnItem()).submit();
         ItemManager.latestItem.setMsgid(msg.get().getId());
     }

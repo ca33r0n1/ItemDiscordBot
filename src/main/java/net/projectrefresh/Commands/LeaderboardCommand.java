@@ -19,7 +19,7 @@ public class LeaderboardCommand extends CoreCommand{
     }
 
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
         Map<String, String> keys = Redis.getJedis().hgetAll("DiscordBot");
         HashMap<String, Integer> temp = new HashMap<>();
         for (String discordid : keys.keySet()){

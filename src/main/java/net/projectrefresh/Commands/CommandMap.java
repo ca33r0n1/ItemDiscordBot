@@ -1,7 +1,6 @@
 package net.projectrefresh.Commands;
 
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 public class CommandMap {
 
@@ -19,6 +18,14 @@ public class CommandMap {
         else {
             return null;
         }
+    }
+
+    public static boolean contains(String command){
+        return commands.containsKey(command);
+    }
+
+    public static Collection<Optional<CoreCommand>> getAllCommands(){
+        return commands.values();
     }
 
 

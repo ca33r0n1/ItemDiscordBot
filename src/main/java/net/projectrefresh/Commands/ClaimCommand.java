@@ -14,7 +14,7 @@ public class ClaimCommand extends CoreCommand{
      *  Pull the latest Item that's cached in the server and set it as claimed.
      */
     @Override
-    public void execute(@NotNull MessageReceivedEvent event) {
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
         if (!event.getAuthor().isBot()) {
             ItemManager.latestItem.claim(event.getAuthor(), event.getChannel());
         }
