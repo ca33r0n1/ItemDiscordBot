@@ -9,16 +9,16 @@ public class CoreCommand {
     @Getter
     private final String description;
     @Getter
-    private String[] aliases;
-    @Getter
     private final String label;
+    @Getter
+    private String[] aliases;
 
     /**
      * Construct a new command.
      *
-     * @param command command label
+     * @param command     command label
      * @param description command description
-     * @param aliases command aliases
+     * @param aliases     command aliases
      */
     public CoreCommand(String command, String description, String... aliases) {
         this.label = command;
@@ -27,10 +27,11 @@ public class CoreCommand {
 
         register();
     }
+
     /**
      * Construct a new command.
      *
-     * @param command command label
+     * @param command     command label
      * @param description command description
      */
     public CoreCommand(String command, String description) {
@@ -40,10 +41,10 @@ public class CoreCommand {
     }
 
     /**
-     *  Registers the command to the Command Map
+     * Registers the command to the Command Map
      */
     private void register() {
-        CommandMap.addCommand(label,this);
+        CommandMap.addCommand(label, this);
         if (aliases != null) {
             for (String S : aliases) {
                 CommandMap.addCommand(S, this);
@@ -52,10 +53,11 @@ public class CoreCommand {
     }
 
     /**
-     *  This is called to run the command. This method is what will run when a users passes a command.
+     * This is called to run the command. This method is what will run when a users passes a command.
+     *
      * @param event Message from Discord Channel
      */
-    public void execute(@NotNull MessageReceivedEvent event, String... args){
+    public void execute(@NotNull MessageReceivedEvent event, String... args) {
     }
 
 }

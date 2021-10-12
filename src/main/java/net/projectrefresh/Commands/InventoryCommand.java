@@ -9,16 +9,16 @@ import org.json.JSONObject;
 
 import java.awt.*;
 
-public class InventoryCommand extends CoreCommand{
+public class InventoryCommand extends CoreCommand {
     public InventoryCommand() {
         super("inventory", "Get your item Inventory", "inv", "items");
     }
 
     @Override
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
-        if(!event.getAuthor().isBot()) {
+        if (!event.getAuthor().isBot()) {
             User user = event.getAuthor();
-            JSONObject object = Redis.getInv(user.getId());
+            JSONObject object = Redis.getUser(user.getId());
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Happy Halloween - " + user.getAsTag() + " Inventory");
             builder.setDescription("All the items in your inventory!");

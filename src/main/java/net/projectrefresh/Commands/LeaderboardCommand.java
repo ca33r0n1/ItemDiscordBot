@@ -9,10 +9,10 @@ import net.projectrefresh.Utils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LeaderboardCommand extends CoreCommand{
+public class LeaderboardCommand extends CoreCommand {
 
     public LeaderboardCommand() {
         super("leaderboard", "The top scores", "top", "highscore");
@@ -22,7 +22,7 @@ public class LeaderboardCommand extends CoreCommand{
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
         Map<String, String> keys = Redis.getJedis().hgetAll("DiscordBot");
         HashMap<String, Integer> temp = new HashMap<>();
-        for (String discordid : keys.keySet()){
+        for (String discordid : keys.keySet()) {
             JSONObject object = new JSONObject(keys.get(discordid));
             Integer claims = object.getInt("total_claims");
             temp.put(discordid, claims);
@@ -32,7 +32,7 @@ public class LeaderboardCommand extends CoreCommand{
         builder.setTitle("Happy Halloween - Current Leaderboard");
         builder.setDescription("The current scores for all the users!");
 
-        for (String user : leaderboard.keySet()){
+        for (String user : leaderboard.keySet()) {
             User u = ItemDiscordBot.jda.retrieveUserById(user).complete();
             builder.addField(u.getName(), "Total Items: " + leaderboard.get(user), false);
         }
@@ -40,7 +40,6 @@ public class LeaderboardCommand extends CoreCommand{
         builder.setFooter("Thank you discord for the Idea and Images. Developed by Ca33r0n1");
         event.getChannel().sendMessageEmbeds(builder.build()).submit();
     }
-
 
 
 }

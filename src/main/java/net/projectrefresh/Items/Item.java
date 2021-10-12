@@ -13,11 +13,12 @@ public class Item {
     private final HalloweenItem item;
     private final EmbedBuilder message;
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private String msgid;
 
 
-    public Item(HalloweenItem item, EmbedBuilder message){
+    public Item(HalloweenItem item, EmbedBuilder message) {
         this.item = item;
         this.message = message;
     }
@@ -28,26 +29,23 @@ public class Item {
             message.setDescription("@" + user.getAsTag() + " answered the call first and was given a " + item.getLable() + ".");
             channel.editMessageEmbedsById(msgid, message.build()).submit();
             if (Redis.getJedis().hexists("DiscordBot", user.getId())) {
-                JSONObject itemaccount = Redis.getInv(user.getId());
+                JSONObject itemaccount = Redis.getUser(user.getId());
                 Integer claim = itemaccount.getInt("total_claims") + 1;
                 if (itemaccount.has(item.getLable())) {
                     Integer perItem = itemaccount.getInt(item.getLable()) + 1;
                     itemaccount.put(item.getLable(), perItem);
-                }
-                else {
+                } else {
                     itemaccount.put(item.getLable(), 1);
                 }
                 itemaccount.put("total_claims", claim);
-                Redis.saveInv(user.getId(), itemaccount);
-            }
-            else {
+                Redis.saveUser(user.getId(), itemaccount);
+            } else {
                 JSONObject itemaccount = new JSONObject();
                 itemaccount.put("total_claims", 1);
                 itemaccount.put(item.getLable(), 1);
-                Redis.saveInv(user.getId(), itemaccount);
+                Redis.saveUser(user.getId(), itemaccount);
             }
-        }
-        else {
+        } else {
             channel.sendMessage("Sorry @" + user.getAsTag() + " this reward has already been claimed.").submit();
         }
     }

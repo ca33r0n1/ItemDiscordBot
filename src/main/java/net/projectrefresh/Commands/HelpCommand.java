@@ -20,8 +20,8 @@ public class HelpCommand extends CoreCommand {
         builder.setTitle("Item Bot Help Guide");
         builder.setDescription("Have a look at all the commands and how to use them");
         builder.setThumbnail("https://cdn.discordapp.com/halloween-bot/Nice-Pumpkins.png");
-        for (Optional<CoreCommand> command : CommandMap.getAllCommands()){
-            builder.addField(command.get().getLabel(), command.get().getDescription() , false);
+        for (Optional<CoreCommand> command : CommandMap.getAllCommands()) {
+            builder.addField(command.get().getLabel(), command.get().getDescription(), false);
         }
         builder.setFooter("Extended help please check GitHub or as Ca33r0n1");
         event.getChannel().sendMessageEmbeds(builder.build()).submit();
