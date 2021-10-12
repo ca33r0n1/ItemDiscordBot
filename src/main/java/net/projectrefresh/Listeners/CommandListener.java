@@ -20,7 +20,8 @@ public class CommandListener extends ListenerAdapter {
                     event.getChannel().sendMessage("No command found. Please use h!help to get a list of commands.").submit();
                 } else {
                     String[] cmdname = command[1].split(" ", 2);
-                    if (cmdname.length != 0) {
+                    System.out.println("Cmdname Length: " + cmdname.length);
+                    if (cmdname.length != 2) {
                         Objects.requireNonNull(CommandMap.getCommand(cmdname[0])).execute(event);
                     } else {
                         String[] args = cmdname[1].split(" ");

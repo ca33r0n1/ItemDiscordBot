@@ -31,6 +31,7 @@ public class ItemDiscordBot {
             properties.setProperty("redis-host", "0.0.0.0");
             properties.setProperty("redis-port", "6379");
             properties.setProperty("redis-password", "changeme");
+            properties.setProperty("listen-channel", "Channel ID");
             properties.store(new FileOutputStream(settings), "Item Bot Configuration");
             System.out.println("Settings Saved. Please edit and start again.");
             System.exit(0);
@@ -41,7 +42,7 @@ public class ItemDiscordBot {
         String host = properties.getProperty("redis-host");
         int port = Integer.parseInt(ItemDiscordBot.getProperties().getProperty("redis-port"));
         String password = properties.getProperty("redis-password");
-        Redis redis = new Redis(host, port, password);
+        new Redis(host, port, password);
 
         jda = JDABuilder.createLight(properties.getProperty("discord-token"))
                 .setActivity(Activity.playing("with ghosts. Commands h!help"))
@@ -50,6 +51,7 @@ public class ItemDiscordBot {
                 .addEventListeners(new CommandListener())
                 .addEventListeners(new ChannelListener())
                 .build();
+
         //Register Commands
         new TestCommand();
         new ClaimCommand();
@@ -57,5 +59,6 @@ public class ItemDiscordBot {
         new InventoryCommand();
         new SummonCommand();
         new HelpCommand();
+        new PermissionCommand();
     }
 }

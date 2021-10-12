@@ -20,14 +20,16 @@ public class InventoryCommand extends CoreCommand {
             User user = event.getAuthor();
             JSONObject object = Redis.getUser(user.getId());
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setTitle("Happy Halloween - " + user.getAsTag() + " Inventory");
+            builder.setTitle("Happy Halloween - @" + user.getAsTag() + " Inventory");
             builder.setDescription("All the items in your inventory!");
             if (object == null) {
                 builder.addField("No Items in your Inventory", "Have fun trying to answer the trick or treaters", false);
             } else {
                 for (String key : object.keySet()) {
                     if (!key.equalsIgnoreCase("total_claims")) {
-                        builder.addField(key + " x" + object.getInt(key), "", false);
+                        if (!key.equalsIgnoreCase("permission_level")) {
+                            builder.addField(key + " x" + object.getInt(key), "", false);
+                        }
                     }
                 }
             }
