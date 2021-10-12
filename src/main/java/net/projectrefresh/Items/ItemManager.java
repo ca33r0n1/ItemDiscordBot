@@ -19,18 +19,10 @@ public class ItemManager {
 
     public static MessageEmbed spawnItem() {
         HalloweenItem item = getRandomItem();
-        String TrickorTreat;
-        Random r = new Random();
-        int ToT = r.nextInt(10);
-        if (ToT < 5) { // 15% Chance
-            TrickorTreat = "trick";
-        }
-        else {
-            TrickorTreat = "treat";
-        }
+        String trickOrTreat = getRandomTrickOrTreat();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Happy Halloween!");
-        embedBuilder.setDescription("Knock Knock. Anyone here. type h!" + TrickorTreat + " to earn an item.");
+        embedBuilder.setDescription(String.format("Knock Knock. Anyone here. type h!%s to earn an item.", trickOrTreat));
         embedBuilder.setImage(item.getUrl());
         embedBuilder.setColor(Color.orange);
         embedBuilder.setFooter("Ty Discord for images - Bot by @Ca33r0n1#0001");
@@ -38,6 +30,10 @@ public class ItemManager {
         return embedBuilder.build();
     }
 
+    private static String getRandomTrickOrTreat() {
+        Random r = new Random();
+        return r.nextBoolean() ? "trick" : "treat";
+    }
 
     private static HalloweenItem getRandomItem() {
         return VALUES.get(RANDOM.nextInt(SIZE));
