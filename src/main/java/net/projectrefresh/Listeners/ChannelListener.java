@@ -17,18 +17,17 @@ public class ChannelListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (!event.getAuthor().isBot()) {
-            if (event.getChannel().getId().equals(ItemDiscordBot.getProperties().getProperty("listen-channel"))) {
+           // if (event.getChannel().getId().equals(ItemDiscordBot.getProperties().getProperty("listen-channel"))) {
                 if (!event.getMessage().getContentStripped().startsWith("h!")) {
-                    //We are in Halloween Channel.
                     Random r = new Random();
                     int game = r.nextInt(100);
                     System.out.println("This round was " + game);
                     if (game < 10) { // 10% Chance
-                        CompletableFuture<Message> msg = event.getChannel().sendMessageEmbeds(ItemManager.spawnItem()).submit();
-                        ItemManager.latestItem.setMsgid(msg.get().getId());
+                        CompletableFuture<Message> msg = event.getChannel().sendMessageEmbeds(ItemDiscordBot.getItemManager().spawnItem(event.getChannel().getId())).submit();
+                        ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).setMsgid(msg.get().getId());
                     }
                 }
-            }
+            //}
         }
 
     }

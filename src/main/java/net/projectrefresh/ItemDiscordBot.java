@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.projectrefresh.Commands.*;
 import net.projectrefresh.Database.Redis;
+import net.projectrefresh.Items.ItemManager;
 import net.projectrefresh.Listeners.ChannelListener;
 import net.projectrefresh.Listeners.CommandListener;
 
@@ -21,6 +22,9 @@ public class ItemDiscordBot {
     public static JDA jda;
     @Getter
     private static Properties properties;
+
+    @Getter
+    private static ItemManager itemManager;
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -43,6 +47,7 @@ public class ItemDiscordBot {
         int port = Integer.parseInt(ItemDiscordBot.getProperties().getProperty("redis-port"));
         String password = properties.getProperty("redis-password");
         new Redis(host, port, password);
+        itemManager = new ItemManager();
 
         jda = JDABuilder.createLight(properties.getProperty("discord-token"))
                 .setActivity(Activity.playing("with ghosts. Commands h!help"))
