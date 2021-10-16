@@ -65,5 +65,6 @@ public class ItemDiscordBot {
         new SummonCommand();
         new HelpCommand();
         new PermissionCommand();
+        new ListActiveCommand();
     }
 }

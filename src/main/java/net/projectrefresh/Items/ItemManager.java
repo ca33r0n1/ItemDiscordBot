@@ -24,6 +24,7 @@ public class ItemManager {
     @Deprecated
     public Item latestItem;
 
+    @Getter
     private final ConcurrentHashMap<String, Item> channelActiveItems;
 
 
