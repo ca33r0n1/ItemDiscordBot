@@ -12,21 +12,15 @@ public class Redis {
 
     @Getter
     private static ShardedJedis jedis;
-    private final String _host;
-    private final int _port;
-    private final String _password;
-
 
     public Redis(String host, int port, String password) {
-        this._host = host;
-        this._port = port;
-        this._password = password;
-
+        System.out.println("[Redis] Starting the Jedis Client.");
         List<JedisShardInfo> shards = new ArrayList<>();
-        JedisShardInfo si = new JedisShardInfo(this._host, this._port);
-        si.setPassword(this._password);
+        JedisShardInfo si = new JedisShardInfo(host, port);
+        si.setPassword(password);
         shards.add(si);
         jedis = new ShardedJedis(shards);
+        System.out.println("[Redis] Jedis is connected!.");
     }
 
     public static JSONObject getUser(String discordID) {
