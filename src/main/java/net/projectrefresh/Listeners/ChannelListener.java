@@ -22,7 +22,7 @@ public class ChannelListener extends ListenerAdapter {
                 if (!event.getMessage().getContentStripped().startsWith("h!")) {
                     Random r = new Random();
                     int chance = r.nextInt(100);
-                    System.out.println("This round was " + chance);
+                    //System.out.println("This round was " + chance);
                     if (chance < 10) { // 10% Chance
                         if (LocalTime.now().isBefore(ItemDiscordBot.getItemManager().getLastSpawnTime().plusMinutes(Long.parseLong(ItemDiscordBot.getProperties().getProperty("spawn-cooldown-mins"))))){
                             System.out.println("I would have spawned an item however the time required until next spawn is " + ItemDiscordBot.getItemManager().getLastSpawnTime().plusMinutes(10));

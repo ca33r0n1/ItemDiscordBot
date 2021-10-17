@@ -16,8 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemManager {
 
-    private final List<HalloweenItem> VALUES =
-            Collections.unmodifiableList(Arrays.asList(HalloweenItem.values()));
+    private final List<DnDItems> VALUES =
+            Collections.unmodifiableList(Arrays.asList(DnDItems.values()));
     private final int SIZE = VALUES.size();
     private final Random RANDOM = new Random();
 
@@ -61,24 +61,24 @@ public class ItemManager {
     }
 
     public MessageEmbed spawnItem(String channel) {
-        HalloweenItem halloweenItem = getRandomItem();
+        DnDItems dnDItems = getRandomItem();
         String trickOrTreat = getRandomTrickOrTreat();
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Happy Halloween!");
-        embedBuilder.setDescription(String.format("Knock Knock. Anyone here. type h!%s to earn an item.", trickOrTreat));
-        embedBuilder.setImage(halloweenItem.getUrl());
+        embedBuilder.setTitle("Unidentified Item Found!");
+        embedBuilder.setDescription(String.format("You have stumbled across a random item. type dnd!%s to find out what it is.", trickOrTreat));
+        embedBuilder.setImage(dnDItems.getUrl());
         embedBuilder.setColor(Color.orange);
-        embedBuilder.setFooter("Ty Discord for images - Bot by @Ca33r0n1#0001");
-        Item item = new Item(halloweenItem, embedBuilder);
+        embedBuilder.setFooter("Bot by @Ca33r0n1#0001");
+        Item item = new Item(dnDItems, embedBuilder);
         ItemDiscordBot.getItemManager().addChannelItem(channel,item);
         return embedBuilder.build();
     }
   
     private String getRandomTrickOrTreat() {
         Random r = new Random();
-        return r.nextBoolean() ? "trick" : "treat";
+        return r.nextBoolean() ? "identify" : "inspect";
     }
-    private HalloweenItem getRandomItem() {
+    private DnDItems getRandomItem() {
         return VALUES.get(RANDOM.nextInt(SIZE));
     }
 }

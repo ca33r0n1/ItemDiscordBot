@@ -52,7 +52,7 @@ public class ItemDiscordBot {
         itemManager = new ItemManager();
 
         jda = JDABuilder.createLight(properties.getProperty("discord-token"))
-                .setActivity(Activity.playing("with ghosts. Commands h!help"))
+                .setActivity(Activity.playing("dragons. Commands dnd!help"))
                 .setAutoReconnect(true)
                 .setStatus(OnlineStatus.ONLINE)
                 .addEventListeners(new CommandListener())

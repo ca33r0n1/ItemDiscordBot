@@ -24,7 +24,7 @@ public class Redis {
     }
 
     public static JSONObject getUser(String guildid, String discordID) {
-        return new JSONObject(jedis.hget("DiscordBot", discordID));
+        return new JSONObject(jedis.hget(guildid, discordID));
     }
 
     public static void saveUser(String guildid, String discordid, JSONObject object) {

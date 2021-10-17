@@ -14,13 +14,13 @@ public class CommandListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         String msg = event.getMessage().getContentStripped().toLowerCase(Locale.ROOT);
         if (!event.getAuthor().isBot()) {
-            if (msg.toLowerCase(Locale.ROOT).startsWith("h!")) {
-                String[] command = msg.split("h!");
+            if (msg.toLowerCase(Locale.ROOT).startsWith("dnd!")) {
+                String[] command = msg.split("dnd!");
                 if (command.length == 0) {
                     event.getChannel().sendMessage("No command found. Please use h!help to get a list of commands.").submit();
                 } else {
                     String[] cmdname = command[1].split(" ", 2);
-                    System.out.println("Cmdname Length: " + cmdname.length);
+                    //System.out.println("Cmdname Length: " + cmdname.length);
                     if (cmdname.length != 2) {
                         Objects.requireNonNull(CommandMap.getCommand(cmdname[0])).execute(event);
                     } else {

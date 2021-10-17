@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class Item {
 
     @Getter
-    private final HalloweenItem item;
+    private final DnDItems item;
     @Getter
     private final EmbedBuilder message;
 
@@ -21,7 +21,7 @@ public class Item {
     private String msgid;
 
 
-    public Item(HalloweenItem item, EmbedBuilder message) {
+    public Item(DnDItems item, EmbedBuilder message) {
         this.item = item;
         this.message = message;
     }
@@ -29,7 +29,7 @@ public class Item {
     public void claim(String guildid, User user, MessageChannel channel) {
         if (!item.isClaimed()) {
             item.setClaimed(true);
-            message.setDescription("@" + user.getAsTag() + " answered the call first and was given a " + item.getLable() + ".");
+            message.setDescription("@" + user.getAsTag() + " has claimed it! They found a " + item.getLable() + ".");
             channel.editMessageEmbedsById(msgid, message.build()).submit();
             if (Redis.getJedis().hexists(guildid, user.getId())) {
                 JSONObject itemaccount = Redis.getUser(guildid, user.getId());
