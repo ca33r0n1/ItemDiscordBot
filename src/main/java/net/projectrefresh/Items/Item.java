@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class Item {
 
     @Getter
-    private final DnDItems item;
+    private final HalloweenItem item;
     @Getter
     private final EmbedBuilder message;
 
@@ -21,7 +21,7 @@ public class Item {
     private String msgid;
 
 
-    public Item(DnDItems item, EmbedBuilder message) {
+    public Item(HalloweenItem item, EmbedBuilder message) {
         this.item = item;
         this.message = message;
     }

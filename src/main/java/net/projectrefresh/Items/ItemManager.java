@@ -16,8 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemManager {
 
-    private final List<DnDItems> VALUES =
-            Collections.unmodifiableList(Arrays.asList(DnDItems.values()));
+    private final List<HalloweenItem> VALUES =
+            Collections.unmodifiableList(Arrays.asList(HalloweenItem.values()));
     private final int SIZE = VALUES.size();
     private final Random RANDOM = new Random();
 
@@ -61,15 +61,15 @@ public class ItemManager {
     }
 
     public MessageEmbed spawnItem(String channel) {
-        DnDItems dnDItems = getRandomItem();
+        HalloweenItem halloweenItem = getRandomItem();
         String trickOrTreat = getRandomTrickOrTreat();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Happy Halloween!");
         embedBuilder.setDescription(String.format("Knock Knock. Anyone here. type h!%s to earn an item.", trickOrTreat));
-        embedBuilder.setImage(dnDItems.getUrl());
+        embedBuilder.setImage(halloweenItem.getUrl());
         embedBuilder.setColor(Color.orange);
         embedBuilder.setFooter("Ty Discord for images - Bot by @Ca33r0n1#0001");
-        Item item = new Item(dnDItems, embedBuilder);
+        Item item = new Item(halloweenItem, embedBuilder);
         ItemDiscordBot.getItemManager().addChannelItem(channel,item);
         return embedBuilder.build();
     }
