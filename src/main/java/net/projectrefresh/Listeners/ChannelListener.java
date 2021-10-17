@@ -19,7 +19,7 @@ public class ChannelListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (!event.getAuthor().isBot()) {
            // if (event.getChannel().getId().equals(ItemDiscordBot.getProperties().getProperty("listen-channel"))) {
-                if (!event.getMessage().getContentStripped().startsWith("h!")) {
+                if (!event.getMessage().getContentStripped().startsWith("dnd!")) {
                     Random r = new Random();
                     int chance = r.nextInt(100);
                     //System.out.println("This round was " + chance);

@@ -17,7 +17,7 @@ public class CommandListener extends ListenerAdapter {
             if (msg.toLowerCase(Locale.ROOT).startsWith("dnd!")) {
                 String[] command = msg.split("dnd!");
                 if (command.length == 0) {
-                    event.getChannel().sendMessage("No command found. Please use h!help to get a list of commands.").submit();
+                    event.getChannel().sendMessage("No command found. Please use dnd!help to get a list of commands.").submit();
                 } else {
                     String[] cmdname = command[1].split(" ", 2);
                     //System.out.println("Cmdname Length: " + cmdname.length);
