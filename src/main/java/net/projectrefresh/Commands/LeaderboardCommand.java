@@ -20,7 +20,7 @@ public class LeaderboardCommand extends CoreCommand {
 
     @Override
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
-        Map<String, String> keys = Redis.getJedis().hgetAll("DiscordBot");
+        Map<String, String> keys = Redis.getJedis().hgetAll(event.getGuild().getId());
         HashMap<String, Integer> temp = new HashMap<>();
         for (String discordid : keys.keySet()) {
             JSONObject object = new JSONObject(keys.get(discordid));
