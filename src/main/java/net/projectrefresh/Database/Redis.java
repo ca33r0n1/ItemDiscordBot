@@ -23,16 +23,16 @@ public class Redis {
         System.out.println("[Redis] Jedis is connected!.");
     }
 
-    public static JSONObject getUser(String discordID) {
+    public static JSONObject getUser(String guildid, String discordID) {
         return new JSONObject(jedis.hget("DiscordBot", discordID));
     }
 
-    public static void saveUser(String discordid, JSONObject object) {
-        jedis.hset("DiscordBot", discordid, object.toString());
+    public static void saveUser(String guildid, String discordid, JSONObject object) {
+        jedis.hset(guildid, discordid, object.toString());
     }
 
-    public static int getPermissionLevel(String discordID){
-        JSONObject object = getUser(discordID);
+    public static int getPermissionLevel(String guildid, String discordID){
+        JSONObject object = getUser(guildid, discordID);
         if (object.isNull("permission_level")){
             return 0;
         }
@@ -41,10 +41,10 @@ public class Redis {
         }
     }
 
-    public static void setPermissionLevel(String discordID, Integer level){
-        JSONObject object = getUser(discordID);
+    public static void setPermissionLevel(String guildid, String discordID, Integer level){
+        JSONObject object = getUser(guildid, discordID);
         object.put("permission_level", level);
-        saveUser(discordID, object);
+        saveUser(guildid, discordID, object);
     }
 
 

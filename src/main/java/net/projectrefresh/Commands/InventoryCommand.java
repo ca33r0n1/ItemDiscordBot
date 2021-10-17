@@ -18,7 +18,7 @@ public class InventoryCommand extends CoreCommand {
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
         if (!event.getAuthor().isBot()) {
             User user = event.getAuthor();
-            JSONObject object = Redis.getUser(user.getId());
+            JSONObject object = Redis.getUser(event.getGuild().getId(), user.getId());
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Happy Halloween - @" + user.getAsTag() + " Inventory");
             builder.setDescription("All the items in your inventory!");

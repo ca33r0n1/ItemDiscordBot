@@ -7,6 +7,7 @@ import net.projectrefresh.ItemDiscordBot;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,16 +22,23 @@ public class ItemManager {
     private final Random RANDOM = new Random();
 
     @Getter
+    private LocalTime lastSpawnTime;
+
+    @Getter
     @Deprecated
     public Item latestItem;
 
-    @Getter
     private final ConcurrentHashMap<String, Item> channelActiveItems;
 
 
     public ItemManager(){
         System.out.println("[Item Manager] Starting Item Manager.");
         channelActiveItems = new ConcurrentHashMap<>();
+        lastSpawnTime = LocalTime.now();
+    }
+
+    public void removeActiveItem(String guildid, String channelid){
+        channelActiveItems.remove(channelid);
     }
 
     public @Nullable Item getChannelItem(String channelID){
@@ -41,6 +49,10 @@ public class ItemManager {
             System.out.println("[Item Manager] Unable to get reward for channel - " + ItemDiscordBot.jda.getGuildChannelById(channelID).getName());
             return null;
         }
+    }
+
+    public ConcurrentHashMap.KeySetView<String, Item> getKeys(){
+        return channelActiveItems.keySet();
     }
 
     public void addChannelItem(String channel, Item item){

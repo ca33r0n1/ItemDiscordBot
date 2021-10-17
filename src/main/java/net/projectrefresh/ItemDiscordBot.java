@@ -20,6 +20,7 @@ import java.util.Properties;
 public class ItemDiscordBot {
 
     public static JDA jda;
+
     @Getter
     private static Properties properties;
 
@@ -36,6 +37,7 @@ public class ItemDiscordBot {
             properties.setProperty("redis-port", "6379");
             properties.setProperty("redis-password", "changeme");
             properties.setProperty("listen-channel", "Channel ID");
+            properties.setProperty("spawn-cooldown-mins", "5"); // Cooldown Mins
             properties.store(new FileOutputStream(settings), "Item Bot Configuration");
             System.out.println("Settings Saved. Please edit and start again.");
             System.exit(0);
@@ -66,5 +68,7 @@ public class ItemDiscordBot {
         new HelpCommand();
         new PermissionCommand();
         new ListActiveCommand();
+
+
     }
 }
