@@ -16,13 +16,22 @@ public class ListActiveCommand  extends CoreCommand{
 
     @Override
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
-        if (Redis.getPermissionLevel(event.getAuthor().getId()) == 4) {
+        if (Redis.getPermissionLevel(event.getGuild().getId(), event.getAuthor().getId()) == 4) {
             TextChannel channel = ItemDiscordBot.jda.getTextChannelById("888136777381085264");
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Item Bot Admin");
             builder.setDescription("All current Items that are running over the channels.");
-            for (String channelid : ItemDiscordBot.getItemManager().getChannelActiveItems().keySet()){
-                builder.addField(ItemDiscordBot.jda.getTextChannelById(channelid).getName(), ItemDiscordBot.getItemManager().getChannelItem(channelid).getItem().getLable(), false);
+            for (String channelid : ItemDiscordBot.getItemManager().getKeys()){
+                Item item = ItemDiscordBot.getItemManager().getChannelItem(channelid);
+                String claimed;
+                if (item.getItem().isClaimed()){
+                    claimed = "Claimed";
+                }
+                else {
+                    claimed = "Not claimed yet!";
+                }
+                builder.addField(ItemDiscordBot.jda.getTextChannelById(channelid).getName(),
+                      item.getItem().getLable() + " - " + claimed , false);
             }
             channel.sendMessageEmbeds(builder.build()).submit();
         }

@@ -18,7 +18,7 @@ public class SummonCommand extends CoreCommand {
     @SneakyThrows
     @Override
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
-        if (Redis.getPermissionLevel(event.getAuthor().getId()) == 4) {
+        if (Redis.getPermissionLevel(event.getGuild().getId(), event.getAuthor().getId()) == 4) {
             CompletableFuture<Message> msg = event.getChannel().sendMessageEmbeds(ItemDiscordBot.getItemManager().spawnItem(event.getChannel().getId())).submit();
             ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).setMsgid(msg.get().getId());
         }

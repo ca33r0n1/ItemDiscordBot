@@ -16,7 +16,7 @@ public class PermissionCommand extends CoreCommand{
 
     @Override
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
-        if (Redis.getPermissionLevel(event.getAuthor().getId()) != 4){
+        if (Redis.getPermissionLevel(event.getGuild().getId(), event.getAuthor().getId()) != 4){
             event.getChannel().sendMessage("You do not have permission ot this command. Please contact a Mod if this is an error.").submit();
             return;
         }
@@ -24,7 +24,7 @@ public class PermissionCommand extends CoreCommand{
             case "add":
             case "set":
             case "give": {
-                Redis.setPermissionLevel(args[1], Integer.valueOf(args[2]));
+                Redis.setPermissionLevel(event.getGuild().getId(), args[1], Integer.valueOf(args[2]));
                 User user;
                 try{
                     user = ItemDiscordBot.jda.retrieveUserById(args[1]).submit().get();
@@ -37,7 +37,7 @@ public class PermissionCommand extends CoreCommand{
 
             case "take":
             case "remove": {
-                Redis.setPermissionLevel(args[1], 0);
+                Redis.setPermissionLevel(event.getGuild().getId(), args[1], 0);
                 User user;
                 try{
                     user = ItemDiscordBot.jda.retrieveUserById(args[1]).submit().get();

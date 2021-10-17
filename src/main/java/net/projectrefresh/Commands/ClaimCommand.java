@@ -19,8 +19,8 @@ public class ClaimCommand extends CoreCommand {
     public void execute(@NotNull MessageReceivedEvent event, String... args) {
         if (!event.getAuthor().isBot()) {
             if (event.getMessage().getContentStripped().equalsIgnoreCase("h!claim")){
-                if (Redis.getPermissionLevel(event.getAuthor().getId()) == 4){
-                    ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).claim(event.getAuthor(), event.getChannel());
+                if (Redis.getPermissionLevel(event.getGuild().getId(), event.getAuthor().getId()) == 4){
+                    ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).claim(event.getGuild().getId(), event.getAuthor(), event.getChannel());
                     return;
                 }
                 else {
@@ -28,7 +28,7 @@ public class ClaimCommand extends CoreCommand {
                     return;
                 }
             }
-            ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).claim(event.getAuthor(), event.getChannel());
+            ItemDiscordBot.getItemManager().getChannelItem(event.getChannel().getId()).claim(event.getGuild().getId(), event.getAuthor(), event.getChannel());
         }
     }
 }
